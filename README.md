@@ -1,13 +1,19 @@
+<link href="https://github.com/ShuDiamonds/SensingCushionDevice/image/readme.css" rel="stylesheet"></link>
+
 # SensingCushionDevice
 This repository is a Arduiono project about a cushion device to measure the `Biometric information`, chair direction & posture for machine learning analytics. 
+
+<div class="imgWrap">
+<p align="center"> 
+<img  src="https://github.com/ShuDiamonds/SensingCushionDevice/blob/master/image/tattery.jpg" width="320px"  title="Outlook of Cushion device">
+</p>
+</div>
 
 ## Description
  Cushion sensing device provide you the `Biometric information`, chair direction & posture 
  using 9-axis sensor ( [MPU9250](https://www.amazon.co.jp/HiLetgo-MPU9250-9%E8%87%AA%E7%94%B1%E5%BA%A61-%E3%82%B8%E3%83%A3%E3%82%A4%E3%83%AD%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97-%E7%A3%81%E6%B0%97%E3%82%BB%E3%83%B3%E3%82%B5/dp/B0154PM102/ref=sr_1_1?ie=UTF8&qid=1530681387&sr=8-1&keywords=mpu9250) ) and pressure sensor ( [ALPHA-MF02-N-221-A01](https://www.switch-science.com/catalog/2615/))
 
-<p align="center"> 
-<img  src="https://github.com/ShuDiamonds/SensingCushionDevice/blob/master/image/tattery.jpg" width="320px"  title="Outlook of Cushion device">
-</p>
+
 
 ## Requirement
 * Arduino Uno
