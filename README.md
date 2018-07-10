@@ -1,5 +1,3 @@
-<link href="https://github.com/ShuDiamonds/SensingCushionDevice/image/readme.css" rel="stylesheet"></link>
-
 # SensingCushionDevice
 This repository is a Arduiono project about a cushion device to measure the `Biometric information`, chair direction & posture for machine learning analytics. 
 
