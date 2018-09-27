@@ -50,10 +50,14 @@ This repository is a Arduiono project about a cushion device to measure the `Bio
 
 7. Run the program.
 
+## Related Articles
+* [embedded](https://github.com/topics/shu-embedded-systems)
+* [Machine Learning data](https://github.com/topics/shu-machine-learning-data)
+
 ## Licence
 
   [MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
 
-## Author
 
+## Author
   [ShuDiamonds](https://github.com/ShuDiamonds)
