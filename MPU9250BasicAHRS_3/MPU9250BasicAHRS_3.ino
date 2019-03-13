@@ -292,24 +292,24 @@ void loop()
       int ain0 = analogRead(0);
       int ain1 = analogRead(1);
       int ain2 = analogRead(2);
-      //蝨ｧ蜉帙そ繝ｳ繧ｵ縺ｮ繝�繝ｼ繧ｿ繧帝�∽ｿ｡
+      //send three press sensor data
       float tmp0 = secretfunc((float)ain0 / 1024, 0.5); // right or left
       float tmp1 = secretfunc((float)ain1 / 1024, 0.4); // back
       float tmp2 = secretfunc((float)ain2 / 1024, 0.5); //foward
       if (judge(tmp1, tmp2)) {// if sitting on chusion, send data 
         Serial.print((int)(tmp + 35) % 360); Serial.print("\t");
-        Serial.print(tmp0, 2); Serial.print("\t"); //讓ｪ縺ｮ繧ｻ繝ｳ繧ｵ
+        Serial.print(tmp0, 2); Serial.print("\t"); // right and left sensor data
         Serial.print(tmp1, 2); Serial.print("\t");
-        //Serial.print((float)ain1/1024,2);Serial.print("\t");//蠕後ｍ縺ｮ繧ｻ繝ｳ繧ｵ
+        //Serial.print((float)ain1/1024,2);Serial.print("\t");//back sensor
         Serial.print(tmp2, 2); Serial.print("\t");
-        //Serial.print((float)ain2/1024,2);Serial.print("\t");//蜑阪�ｮ繧ｻ繝ｳ繧ｵ
-        //secretfunc縺ｧ蜀咲樟諤ｧ
+        //Serial.print((float)ain2/1024,2);Serial.print("\t");//foward sensor
+        //secretfunc provide reproducibility
 
-        //繧ｸ繝｣繧､繝ｭ繝�繝ｼ繧ｿ縺ｮ騾∽ｿ｡
-        Serial.print(myIMU.gy, 2); Serial.print("\t"); //繧ｸ繝｣繧､繝ｭ縺ｫ繧医ｋ繧ゅ◆繧梧ュ蝣ｱ
-        Serial.print(myIMU.gz, 2); Serial.print("\t"); //繧ｸ繝｣繧､繝ｭ縺ｫ繧医ｋ繧､繧ｹ縺ｮ蝗櫁ｻ｢驥乗ュ蝣ｱ
+        //gyro data send 
+        Serial.print(myIMU.gy, 2); Serial.print("\t"); //sag 
+        Serial.print(myIMU.gz, 2); Serial.print("\t"); // rotation
 
-        Serial.print(judge(tmp1, tmp2)); Serial.print("\t"); //蠎ｧ縺｣縺ｦ縺�繧九→縺�1縲∝ｺｧ縺｣縺ｦ縺�縺ｪ縺�縺ｨ縺�0
+        Serial.print(judge(tmp1, tmp2)); Serial.print("\t"); //sitting:1, not sitting 0
         Serial.println("");
       }
 
