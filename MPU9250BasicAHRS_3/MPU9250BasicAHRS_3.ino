@@ -1,5 +1,5 @@
 
-//蜿り�ザRL�ｼ喇ttp://deviceplus.jp/hobby/entry041/#t01
+//陷ｿ繧奇ｿｽ繧ｶRL�ｿｽ�ｽｼ蝟㏄tp://deviceplus.jp/hobby/entry041/#t01
 
 
 /* MPU9250 Basic Example Code
@@ -53,15 +53,15 @@ long double list[10] = {0};
 byte cnt = 0;
 double mxoffset = -384.255, myoffset = 176.615, mzoffset = 0;
 
-float secretfunc(float x,float base){
-  float tmp=pow(x-base,3)+0.5;
-  tmp=(tmp-(pow(-base,3)+0.5))/(pow(1-base,3)-pow(-base,3));
+float secretfunc(float x, float base) {
+  float tmp = pow(x - base, 3) + 0.5;
+  tmp = (tmp - (pow(-base, 3) + 0.5)) / (pow(1 - base, 3) - pow(-base, 3));
   return tmp;
-  
+
 }
 
-float judge(float a, float b){
-  if(a>0.95 && a>0.95) return 0;
+float judge(float a, float b) {
+  if (a > 0.95 && a > 0.95) return 0;
   else return 1.0;
 }
 
@@ -282,60 +282,62 @@ void loop()
       }
       list[cnt] = (atan2((myIMU.mx - mxoffset), (myIMU.my - myoffset)) * 180.0 / PI);
       cnt++;
-      int tmp =(int)(atan2((myIMU.mx - mxoffset), (myIMU.my - myoffset)) * 180.0 / PI);
-      tmp = tmp+180;
-      tmp = 360-tmp;
-      
+      int tmp = (int)(atan2((myIMU.mx - mxoffset), (myIMU.my - myoffset)) * 180.0 / PI);
+      tmp = tmp + 180;
+      tmp = 360 - tmp;
+
       //Serial.print((int)(atan2((myIMU.mx - mxoffset), (myIMU.my - myoffset)) * 180.0 / PI));
-      
-      
+
+
       int ain0 = analogRead(0);
       int ain1 = analogRead(1);
       int ain2 = analogRead(2);
-      //圧力センサのデータを送信
-      float tmp0=secretfunc((float)ain0/1024,0.5);
-      float tmp1=secretfunc((float)ain1/1024,0.4);
-      float tmp2=secretfunc((float)ain2/1024,0.5);
-      
-      Serial.print((int)(tmp+35)%360);Serial.print("\t");
-      Serial.print(tmp0,2);Serial.print("\t");//横のセンサ
-      Serial.print(tmp1,2); Serial.print("\t");
-      //Serial.print((float)ain1/1024,2);Serial.print("\t");//後ろのセンサ
-      Serial.print(tmp2,2); Serial.print("\t");
-      //Serial.print((float)ain2/1024,2);Serial.print("\t");//前のセンサ
-      //secretfuncで再現性
-      
-      //ジャイロデータの送信
-      Serial.print(myIMU.gy,2);Serial.print("\t");//ジャイロによるもたれ情報
-      Serial.print(myIMU.gz,2);Serial.print("\t");//ジャイロによるイスの回転量情報
+      //蝨ｧ蜉帙そ繝ｳ繧ｵ縺ｮ繝�繝ｼ繧ｿ繧帝�∽ｿ｡
+      float tmp0 = secretfunc((float)ain0 / 1024, 0.5); // right or left
+      float tmp1 = secretfunc((float)ain1 / 1024, 0.4); // back
+      float tmp2 = secretfunc((float)ain2 / 1024, 0.5); //foward
+      if (judge(tmp1, tmp2)) {// if sitting on chusion, send data 
+        Serial.print((int)(tmp + 35) % 360); Serial.print("\t");
+        Serial.print(tmp0, 2); Serial.print("\t"); //讓ｪ縺ｮ繧ｻ繝ｳ繧ｵ
+        Serial.print(tmp1, 2); Serial.print("\t");
+        //Serial.print((float)ain1/1024,2);Serial.print("\t");//蠕後ｍ縺ｮ繧ｻ繝ｳ繧ｵ
+        Serial.print(tmp2, 2); Serial.print("\t");
+        //Serial.print((float)ain2/1024,2);Serial.print("\t");//蜑阪�ｮ繧ｻ繝ｳ繧ｵ
+        //secretfunc縺ｧ蜀咲樟諤ｧ
 
-      Serial.print(judge(tmp1,tmp2));Serial.print("\t");//座っているとき1、座っていないとき0
-      Serial.println("");
+        //繧ｸ繝｣繧､繝ｭ繝�繝ｼ繧ｿ縺ｮ騾∽ｿ｡
+        Serial.print(myIMU.gy, 2); Serial.print("\t"); //繧ｸ繝｣繧､繝ｭ縺ｫ繧医ｋ繧ゅ◆繧梧ュ蝣ｱ
+        Serial.print(myIMU.gz, 2); Serial.print("\t"); //繧ｸ繝｣繧､繝ｭ縺ｫ繧医ｋ繧､繧ｹ縺ｮ蝗櫁ｻ｢驥乗ュ蝣ｱ
+
+        Serial.print(judge(tmp1, tmp2)); Serial.print("\t"); //蠎ｧ縺｣縺ｦ縺�繧九→縺�1縲∝ｺｧ縺｣縺ｦ縺�縺ｪ縺�縺ｨ縺�0
+        Serial.println("");
+      }
+
       delay(100);
-      
-      //Serial.print(" gy = "); Serial.print( myIMU.gy, 2); //イスのもたれをジャイロで数値化
-      //Serial.print(" gz = "); Serial.print( myIMU.gz, 2); //イスの回転量をジャイロで数値化
+
+      //Serial.print(" gy = "); Serial.print( myIMU.gy, 2); //繧､繧ｹ縺ｮ繧ゅ◆繧後ｒ繧ｸ繝｣繧､繝ｭ縺ｧ謨ｰ蛟､蛹�
+      //Serial.print(" gz = "); Serial.print( myIMU.gz, 2); //繧､繧ｹ縺ｮ蝗櫁ｻ｢驥上ｒ繧ｸ繝｣繧､繝ｭ縺ｧ謨ｰ蛟､蛹�
       /***************************** END ADD *************************************
-      
+
 
       *****/
       if (SerialDebug)
       {
-        
-          Serial.print("ax = "); Serial.print((int)1000*myIMU.ax);
-          Serial.print(" ay = "); Serial.print((int)1000*myIMU.ay);
-          Serial.print(" az = "); Serial.print((int)1000*myIMU.az);
-          Serial.println(" mg");
 
-          Serial.print("gx = "); Serial.print( myIMU.gx, 2);
-          Serial.print(" gy = "); Serial.print( myIMU.gy, 2);
-          Serial.print(" gz = "); Serial.print( myIMU.gz, 2);
-          Serial.println(" deg/s");
-          Serial.print("mx = "); Serial.print( (int)myIMU.mx );
-          Serial.print(" my = "); Serial.print( (int)myIMU.my );
-          Serial.print(" mz = "); Serial.print( (int)myIMU.mz );
-          Serial.println(" mG");
-        
+        Serial.print("ax = "); Serial.print((int)1000 * myIMU.ax);
+        Serial.print(" ay = "); Serial.print((int)1000 * myIMU.ay);
+        Serial.print(" az = "); Serial.print((int)1000 * myIMU.az);
+        Serial.println(" mg");
+
+        Serial.print("gx = "); Serial.print( myIMU.gx, 2);
+        Serial.print(" gy = "); Serial.print( myIMU.gy, 2);
+        Serial.print(" gz = "); Serial.print( myIMU.gz, 2);
+        Serial.println(" deg/s");
+        Serial.print("mx = "); Serial.print( (int)myIMU.mx );
+        Serial.print(" my = "); Serial.print( (int)myIMU.my );
+        Serial.print(" mz = "); Serial.print( (int)myIMU.mz );
+        Serial.println(" mG");
+
 
         /*
           Serial.print("mx = "); Serial.print( (myIMU.mx/vectornorm) );
@@ -387,8 +389,8 @@ void loop()
                           - * (getQ() + 2) * *(getQ() + 2) + * (getQ() + 3) * *(getQ() + 3));
       myIMU.pitch *= RAD_TO_DEG;
       myIMU.yaw   *= RAD_TO_DEG;
-      // Declination of SparkFun Electronics (40ﾂｰ05'26.6"N 105ﾂｰ11'05.9"W) is
-      // 	8ﾂｰ 30' E  ﾂｱ 0ﾂｰ 21' (or 8.5ﾂｰ) on 2016-07-19
+      // Declination of SparkFun Electronics (40�ｾゑｽｰ05'26.6"N 105�ｾゑｽｰ11'05.9"W) is
+      // 	8�ｾゑｽｰ 30' E  �ｾゑｽｱ 0�ｾゑｽｰ 21' (or 8.5�ｾゑｽｰ) on 2016-07-19
       // - http://www.ngdc.noaa.gov/geomag-web/#declination
       myIMU.yaw   -= 8.5;
       myIMU.roll  *= RAD_TO_DEG;
@@ -416,4 +418,5 @@ void loop()
     } // if (myIMU.delt_t > intervaltime)
   } // if (AHRS)
 }
+
 
